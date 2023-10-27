@@ -1,12 +1,20 @@
-FROM python:3.9
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
 
-WORKDIR /app/backend
+# Install Python 3.10
+RUN powershell.exe -Command "Add-WindowsPackage -Name Python3.10"
 
-COPY requirements.txt /app/backend
-RUN pip install -r requirements.txt
+# Install Django and other dependencies
+RUN pip.exe install django
 
-COPY . /app/backend
+# Copy the Django application code into the image
+COPY . C:\app
 
+# Set the working directory to the Django application directory
+WORKDIR C:\app
+
+# Expose the Django development server port
 EXPOSE 8000
 
-CMD python /app/backend/manage.py runserver 0.0.0.0:8000
+# Start the Django development server
+CMD ["python.exe", "manage.py", "runserver", "0.0.0.0:8000"]
+
