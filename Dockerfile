@@ -1,7 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2022
-
-# Install Python 3.10
-RUN powershell.exe -Command "Add-WindowsPackage -Name Python3.10"
+FROM python:3.6
 
 # Install Django and other dependencies
 RUN pip.exe install django
